@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Convrt — Websites & AI That Convert</title>
+<title>Convrt — Websites & AI Chatbots for Small Businesses</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <style>
@@ -17,1347 +17,264 @@
   --border2: rgba(255,255,255,0.12);
   --accent: #00e5a0;
   --accent2: #00c4e8;
-  --accent-glow: rgba(0,229,160,0.15);
-  --accent2-glow: rgba(0,196,232,0.12);
   --text: #f0f2f1;
   --text2: #8a9290;
   --text3: #4d5553;
   --syne: 'Syne', sans-serif;
   --dm: 'DM Sans', sans-serif;
 }
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 html { scroll-behavior: smooth; }
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--dm);
-  font-size: 16px;
-  line-height: 1.6;
-  overflow-x: hidden;
-}
-
-/* NOISE OVERLAY */
+body { background: var(--bg); color: var(--text); font-family: var(--dm); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
 body::before {
   content: '';
-  position: fixed;
-  inset: 0;
+  position: fixed; inset: 0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 1000;
-  opacity: 0.6;
+  pointer-events: none; z-index: 1000; opacity: 0.6;
 }
 
 /* NAV */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  padding: 0 5%;
-  height: 68px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--border);
-  background: rgba(8,9,9,0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-}
-
-.nav-logo {
-  font-family: var(--syne);
-  font-size: 22px;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: var(--text);
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 2px;
-}
-
-.nav-logo span {
-  color: var(--accent);
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 36px;
-  list-style: none;
-}
-
-.nav-links a {
-  font-size: 13px;
-  font-weight: 400;
-  color: var(--text2);
-  text-decoration: none;
-  letter-spacing: 0.02em;
-  transition: color 0.2s;
-}
-
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 5%; height: 68px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); background: rgba(8,9,9,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+.nav-logo { font-family: var(--syne); font-size: 22px; font-weight: 800; letter-spacing: -0.03em; color: var(--text); text-decoration: none; }
+.nav-logo span { color: var(--accent); }
+.nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+.nav-links a { font-size: 13px; font-weight: 400; color: var(--text2); text-decoration: none; letter-spacing: 0.02em; transition: color 0.2s; }
 .nav-links a:hover { color: var(--text); }
-
-.nav-cta {
-  background: var(--accent);
-  color: #040a07 !important;
-  font-weight: 500 !important;
-  padding: 8px 20px;
-  border-radius: 6px;
-  font-size: 13px !important;
-  transition: opacity 0.2s !important;
-}
-
-.nav-cta:hover { opacity: 0.88; color: #040a07 !important; }
+.nav-cta { background: var(--accent) !important; color: #040a07 !important; font-weight: 500 !important; padding: 8px 20px; border-radius: 6px; transition: opacity 0.2s !important; }
+.nav-cta:hover { opacity: 0.88; }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+.nav-toggle span { display: block; width: 22px; height: 1.5px; background: var(--text); margin: 5px 0; }
 
 /* HERO */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  padding: 120px 5% 80px;
-  position: relative;
-  overflow: hidden;
-}
-
-.hero-grid-bg {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(0,229,160,0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,229,160,0.025) 1px, transparent 1px);
-  background-size: 60px 60px;
-  mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
-}
-
-.hero-glow {
-  position: absolute;
-  width: 700px;
-  height: 700px;
-  background: radial-gradient(circle, rgba(0,229,160,0.07) 0%, transparent 70%);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-
-.hero-glow2 {
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(0,196,232,0.05) 0%, transparent 70%);
-  top: 20%;
-  right: 10%;
-  pointer-events: none;
-}
-
-.hero-inner {
-  position: relative;
-  max-width: 1100px;
-  margin: 0 auto;
-  width: 100%;
-}
-
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(0,229,160,0.08);
-  border: 1px solid rgba(0,229,160,0.2);
-  border-radius: 100px;
-  padding: 6px 14px;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--accent);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  margin-bottom: 32px;
-  opacity: 0;
-  animation: fadeUp 0.8s ease forwards 0.1s;
-}
-
-.hero-badge::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  animation: pulse 2s ease infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.7); }
-}
-
-.hero-h1 {
-  font-family: var(--syne);
-  font-size: clamp(52px, 7vw, 88px);
-  font-weight: 800;
-  line-height: 0.95;
-  letter-spacing: -0.04em;
-  color: var(--text);
-  margin-bottom: 28px;
-  opacity: 0;
-  animation: fadeUp 0.9s ease forwards 0.2s;
-}
-
-.hero-h1 .line2 {
-  display: block;
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.hero-sub {
-  font-size: clamp(16px, 2vw, 19px);
-  color: var(--text2);
-  max-width: 540px;
-  line-height: 1.65;
-  font-weight: 300;
-  margin-bottom: 48px;
-  opacity: 0;
-  animation: fadeUp 0.9s ease forwards 0.35s;
-}
-
-.hero-actions {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  opacity: 0;
-  animation: fadeUp 0.9s ease forwards 0.5s;
-}
-
-.btn-primary {
-  background: var(--accent);
-  color: #040a07;
-  font-family: var(--dm);
-  font-size: 15px;
-  font-weight: 500;
-  padding: 14px 32px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.2s;
-  letter-spacing: -0.01em;
-}
-
-.btn-primary:hover {
-  background: #00ffb3;
-  transform: translateY(-1px);
-  box-shadow: 0 0 32px rgba(0,229,160,0.3);
-}
-
-.btn-secondary {
-  background: transparent;
-  color: var(--text2);
-  font-family: var(--dm);
-  font-size: 15px;
-  font-weight: 400;
-  padding: 14px 24px;
-  border-radius: 8px;
-  border: 1px solid var(--border2);
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.2s;
-}
-
-.btn-secondary:hover {
-  border-color: rgba(255,255,255,0.25);
-  color: var(--text);
-  background: rgba(255,255,255,0.04);
-}
-
-.hero-stats {
-  display: flex;
-  gap: 48px;
-  margin-top: 80px;
-  padding-top: 48px;
-  border-top: 1px solid var(--border);
-  opacity: 0;
-  animation: fadeUp 0.9s ease forwards 0.7s;
-  flex-wrap: wrap;
-}
-
-.stat-item {}
-.stat-num {
-  font-family: var(--syne);
-  font-size: 36px;
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  color: var(--text);
-  line-height: 1;
-}
+.hero { min-height: 100vh; display: flex; align-items: center; padding: 120px 5% 80px; position: relative; overflow: hidden; }
+.hero-grid-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(0,229,160,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,160,0.025) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%); }
+.hero-glow { position: absolute; width: 700px; height: 700px; background: radial-gradient(circle, rgba(0,229,160,0.07) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+.hero-glow2 { position: absolute; width: 500px; height: 500px; background: radial-gradient(circle, rgba(0,196,232,0.05) 0%, transparent 70%); top: 20%; right: 10%; pointer-events: none; }
+.hero-inner { position: relative; max-width: 1100px; margin: 0 auto; width: 100%; }
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,229,160,0.08); border: 1px solid rgba(0,229,160,0.2); border-radius: 100px; padding: 6px 14px; font-size: 12px; font-weight: 500; color: var(--accent); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 32px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.1s; }
+.hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s ease infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.7); } }
+.hero-h1 { font-family: var(--syne); font-size: clamp(52px, 7vw, 88px); font-weight: 800; line-height: 0.95; letter-spacing: -0.04em; color: var(--text); margin-bottom: 28px; opacity: 0; animation: fadeUp 0.9s ease forwards 0.2s; }
+.hero-h1 .line2 { display: block; background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-sub { font-size: clamp(16px, 2vw, 19px); color: var(--text2); max-width: 540px; line-height: 1.65; font-weight: 300; margin-bottom: 48px; opacity: 0; animation: fadeUp 0.9s ease forwards 0.35s; }
+.hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.9s ease forwards 0.5s; }
+.btn-primary { background: var(--accent); color: #040a07; font-family: var(--dm); font-size: 15px; font-weight: 500; padding: 14px 32px; border-radius: 8px; border: none; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; letter-spacing: -0.01em; }
+.btn-primary:hover { background: #00ffb3; transform: translateY(-1px); box-shadow: 0 0 32px rgba(0,229,160,0.3); }
+.btn-secondary { background: transparent; color: var(--text2); font-family: var(--dm); font-size: 15px; font-weight: 400; padding: 14px 24px; border-radius: 8px; border: 1px solid var(--border2); cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
+.btn-secondary:hover { border-color: rgba(255,255,255,0.25); color: var(--text); background: rgba(255,255,255,0.04); }
+.hero-stats { display: flex; gap: 48px; margin-top: 80px; padding-top: 48px; border-top: 1px solid var(--border); opacity: 0; animation: fadeUp 0.9s ease forwards 0.7s; flex-wrap: wrap; }
+/* FIX: stat numbers were dark/invisible — now explicitly white */
+.stat-num { font-family: var(--syne); font-size: 36px; font-weight: 700; letter-spacing: -0.04em; color: var(--text); line-height: 1; }
 .stat-num span { color: var(--accent); }
-.stat-label {
-  font-size: 13px;
-  color: var(--text3);
-  margin-top: 4px;
-  font-weight: 300;
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+.stat-label { font-size: 13px; color: var(--text2); margin-top: 4px; font-weight: 300; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
 
 /* MARQUEE */
-.marquee-section {
-  padding: 20px 0;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  overflow: hidden;
-  background: var(--bg2);
-  position: relative;
-}
+.marquee-section { padding: 20px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); overflow: hidden; background: var(--bg2); }
+.marquee-track { display: flex; animation: marquee 28s linear infinite; white-space: nowrap; }
+.marquee-item { display: inline-flex; align-items: center; gap: 16px; padding: 0 40px; font-family: var(--syne); font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3); }
+.marquee-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-.marquee-track {
-  display: flex;
-  gap: 0;
-  animation: marquee 28s linear infinite;
-  white-space: nowrap;
-}
-
-.marquee-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 16px;
-  padding: 0 40px;
-  font-family: var(--syne);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text3);
-}
-
-.marquee-dot {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--accent);
-  flex-shrink: 0;
-}
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-/* SECTIONS SHARED */
-section {
-  padding: 100px 5%;
-  position: relative;
-}
-
-.section-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.section-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 20px;
-}
-
-.section-label::before {
-  content: '';
-  width: 20px;
-  height: 1px;
-  background: var(--accent);
-}
-
-.section-title {
-  font-family: var(--syne);
-  font-size: clamp(36px, 4.5vw, 56px);
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  line-height: 1.05;
-  color: var(--text);
-  margin-bottom: 16px;
-}
-
-.section-sub {
-  font-size: 17px;
-  color: var(--text2);
-  font-weight: 300;
-  max-width: 480px;
-  line-height: 1.65;
-}
+/* SHARED */
+section { padding: 100px 5%; position: relative; }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+.section-label { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
+.section-label::before { content: ''; width: 20px; height: 1px; background: var(--accent); }
+.section-title { font-family: var(--syne); font-size: clamp(36px, 4.5vw, 56px); font-weight: 700; letter-spacing: -0.04em; line-height: 1.05; color: var(--text); margin-bottom: 16px; }
+.section-sub { font-size: 17px; color: var(--text2); font-weight: 300; max-width: 480px; line-height: 1.65; }
 
 /* SERVICES */
 .services { background: var(--bg); }
-
-.services-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 64px;
-  gap: 32px;
-  flex-wrap: wrap;
-}
-
-.services-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2px;
-}
-
-.service-card {
-  background: var(--surface);
-  padding: 48px;
-  position: relative;
-  overflow: hidden;
-  transition: background 0.3s;
-  cursor: default;
-}
-
+.services-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 64px; gap: 32px; flex-wrap: wrap; }
+.services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+.service-card { background: var(--surface); padding: 48px; position: relative; overflow: hidden; transition: background 0.3s; }
 .service-card:hover { background: var(--surface2); }
-
-.service-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
+.service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0; transition: opacity 0.3s; }
 .service-card:hover::before { opacity: 1; }
-
-.service-card.featured {
-  background: linear-gradient(135deg, rgba(0,229,160,0.05) 0%, rgba(0,196,232,0.03) 100%);
-  border: 1px solid rgba(0,229,160,0.15);
-}
-
-.service-card.full-width {
-  grid-column: 1 / -1;
-}
-
-.service-icon {
-  width: 48px;
-  height: 48px;
-  margin-bottom: 28px;
-}
-
-.service-num {
-  font-family: var(--syne);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  color: var(--text3);
-  text-transform: uppercase;
-  margin-bottom: 16px;
-}
-
-.service-name {
-  font-family: var(--syne);
-  font-size: 26px;
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  color: var(--text);
-  margin-bottom: 12px;
-  line-height: 1.1;
-}
-
-.service-desc {
-  font-size: 15px;
-  color: var(--text2);
-  line-height: 1.65;
-  font-weight: 300;
-  margin-bottom: 32px;
-}
-
-.service-features {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.service-features li {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-size: 13.5px;
-  color: var(--text2);
-  font-weight: 300;
-}
-
-.service-features li::before {
-  content: '';
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--accent);
-  flex-shrink: 0;
-  margin-top: 7px;
-}
-
-.service-price {
-  margin-top: 40px;
-  padding-top: 28px;
-  border-top: 1px solid var(--border);
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
-}
-
+.service-card.featured { background: linear-gradient(135deg, rgba(0,229,160,0.05) 0%, rgba(0,196,232,0.03) 100%); border: 1px solid rgba(0,229,160,0.15); }
+.service-card.third { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.service-num { font-family: var(--syne); font-size: 11px; font-weight: 700; letter-spacing: 0.14em; color: var(--text3); text-transform: uppercase; margin-bottom: 16px; }
+.service-name { font-family: var(--syne); font-size: 26px; font-weight: 700; letter-spacing: -0.03em; color: var(--text); margin-bottom: 12px; line-height: 1.1; }
+.service-desc { font-size: 15px; color: var(--text2); line-height: 1.65; font-weight: 300; margin-bottom: 32px; }
+.service-features { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.service-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; color: var(--text2); font-weight: 300; }
+.service-features li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 7px; }
+.service-price { margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--border); display: flex; align-items: baseline; gap: 6px; }
 .price-from { font-size: 12px; color: var(--text3); font-weight: 300; }
-.price-num {
-  font-family: var(--syne);
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--text);
-  letter-spacing: -0.04em;
-}
+.price-num { font-family: var(--syne); font-size: 28px; font-weight: 700; color: var(--text); letter-spacing: -0.04em; }
 .price-suffix { font-size: 13px; color: var(--text3); font-weight: 300; }
+.branding-pill { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,196,232,0.08); border: 1px solid rgba(0,196,232,0.2); border-radius: 100px; padding: 5px 12px; font-size: 11px; font-weight: 600; color: var(--accent2); letter-spacing: 0.06em; text-transform: uppercase; width: fit-content; margin-bottom: 20px; }
+.service-right { display: flex; flex-direction: column; gap: 20px; }
+.branding-item { display: flex; gap: 16px; align-items: flex-start; }
+.branding-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--surface2); border: 1px solid var(--border2); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+.branding-text-title { font-family: var(--syne); font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+.branding-text-desc { font-size: 13px; color: var(--text2); font-weight: 300; line-height: 1.5; }
 
 /* HOW IT WORKS */
 .how { background: var(--bg2); }
-
-.steps {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2px;
-  margin-top: 64px;
-}
-
-.step {
-  padding: 40px 32px;
-  background: var(--surface);
-  position: relative;
-}
-
-.step-line {
-  position: absolute;
-  top: 56px;
-  right: -1px;
-  width: 1px;
-  height: 32px;
-  background: linear-gradient(to bottom, var(--accent), transparent);
-  z-index: 1;
-}
-
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 64px; }
+.step { padding: 40px 32px; background: var(--surface); position: relative; }
+.step-line { position: absolute; top: 56px; right: -1px; width: 1px; height: 32px; background: linear-gradient(to bottom, var(--accent), transparent); z-index: 1; }
 .step:last-child .step-line { display: none; }
-
-.step-num {
-  font-family: var(--syne);
-  font-size: 44px;
-  font-weight: 800;
-  letter-spacing: -0.05em;
-  color: var(--bg3);
-  line-height: 1;
-  margin-bottom: 20px;
-  -webkit-text-stroke: 1px var(--surface2);
-}
-
-.step-title {
-  font-family: var(--syne);
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 10px;
-  letter-spacing: -0.02em;
-}
-
-.step-desc {
-  font-size: 13.5px;
-  color: var(--text2);
-  line-height: 1.6;
-  font-weight: 300;
-}
+.step-num { font-family: var(--syne); font-size: 44px; font-weight: 800; letter-spacing: -0.05em; color: var(--surface2); line-height: 1; margin-bottom: 20px; }
+.step-title { font-family: var(--syne); font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 10px; letter-spacing: -0.02em; }
+.step-desc { font-size: 13.5px; color: var(--text2); line-height: 1.6; font-weight: 300; }
 
 /* NICHES */
 .niches { background: var(--bg); }
-
-.niches-header {
-  margin-bottom: 64px;
-}
-
-.niches-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-}
-
-.niche-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 28px 24px;
-  transition: all 0.3s;
-  cursor: default;
-  position: relative;
-  overflow: hidden;
-}
-
-.niche-card:hover {
-  border-color: rgba(0,229,160,0.25);
-  transform: translateY(-4px);
-  background: var(--surface2);
-}
-
+.niches-header { margin-bottom: 64px; }
+.niches-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.niche-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px 24px; transition: all 0.3s; position: relative; overflow: hidden; }
+.niche-card:hover { border-color: rgba(0,229,160,0.25); transform: translateY(-4px); background: var(--surface2); }
 .niche-card:hover .niche-glow { opacity: 1; }
+.niche-glow { position: absolute; bottom: -40px; left: 50%; transform: translateX(-50%); width: 120px; height: 80px; background: radial-gradient(circle, rgba(0,229,160,0.15) 0%, transparent 70%); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+.niche-emoji { font-size: 28px; margin-bottom: 14px; display: block; }
+.niche-name { font-family: var(--syne); font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 8px; letter-spacing: -0.02em; }
+.niche-desc { font-size: 12.5px; color: var(--text2); line-height: 1.55; font-weight: 300; }
+.niche-tag { display: inline-block; margin-top: 14px; font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: rgba(0,229,160,0.08); border-radius: 4px; padding: 3px 8px; }
 
-.niche-glow {
-  position: absolute;
-  bottom: -40px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 120px;
-  height: 80px;
-  background: radial-gradient(circle, rgba(0,229,160,0.15) 0%, transparent 70%);
-  opacity: 0;
-  transition: opacity 0.3s;
-  pointer-events: none;
-}
-
-.niche-emoji {
-  font-size: 28px;
-  margin-bottom: 14px;
-  display: block;
-}
-
-.niche-name {
-  font-family: var(--syne);
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 8px;
-  letter-spacing: -0.02em;
-}
-
-.niche-desc {
-  font-size: 12.5px;
-  color: var(--text2);
-  line-height: 1.55;
-  font-weight: 300;
-}
-
-.niche-tag {
-  display: inline-block;
-  margin-top: 14px;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent);
-  background: rgba(0,229,160,0.08);
-  border-radius: 4px;
-  padding: 3px 8px;
-}
-
-/* PRICING */
-.pricing { background: var(--bg2); }
-
-.pricing-header { margin-bottom: 64px; }
-
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-}
-
-.pricing-card {
-  background: var(--surface);
-  padding: 44px 36px;
-  position: relative;
-  overflow: hidden;
-}
-
-.pricing-card.highlight {
-  background: linear-gradient(160deg, rgba(0,229,160,0.06) 0%, rgba(0,196,232,0.04) 100%);
-  border-top: 2px solid var(--accent);
-}
-
-.popular-badge {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: var(--accent);
-  color: #040a07;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 4px 10px;
-  border-radius: 4px;
-}
-
-.plan-name {
-  font-family: var(--syne);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text2);
-  margin-bottom: 8px;
-}
-
-.plan-price {
-  font-family: var(--syne);
-  font-size: 52px;
-  font-weight: 800;
-  letter-spacing: -0.05em;
-  color: var(--text);
-  line-height: 1;
-  margin-bottom: 4px;
-}
-
-.plan-price sup {
-  font-size: 22px;
-  font-weight: 400;
-  letter-spacing: 0;
-  vertical-align: super;
-}
-
-.plan-billing {
-  font-size: 13px;
-  color: var(--text3);
-  font-weight: 300;
-  margin-bottom: 8px;
-}
-
-.plan-mrr {
-  font-size: 13px;
-  color: var(--accent);
-  font-weight: 500;
-  margin-bottom: 32px;
-}
-
-.plan-divider {
-  height: 1px;
-  background: var(--border);
-  margin-bottom: 28px;
-}
-
-.plan-features {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 36px;
-}
-
-.plan-features li {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-size: 14px;
-  color: var(--text2);
-  font-weight: 300;
-}
-
-.check {
-  color: var(--accent);
-  font-size: 14px;
-  flex-shrink: 0;
-  font-weight: 500;
-  margin-top: 1px;
-}
-
-.plan-cta {
-  display: block;
-  text-align: center;
-  padding: 13px 24px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  text-decoration: none;
-  transition: all 0.2s;
-  letter-spacing: -0.01em;
-}
-
-.plan-cta.accent {
-  background: var(--accent);
-  color: #040a07;
-}
-
-.plan-cta.accent:hover {
-  background: #00ffb3;
-  box-shadow: 0 0 28px rgba(0,229,160,0.3);
-}
-
-.plan-cta.outline {
-  background: transparent;
-  border: 1px solid var(--border2);
-  color: var(--text2);
-}
-
-.plan-cta.outline:hover {
-  border-color: rgba(255,255,255,0.25);
-  color: var(--text);
-  background: rgba(255,255,255,0.04);
-}
-
-/* WHY CONVRT */
+/* WHY */
 .why { background: var(--bg); }
-
-.why-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
-  margin-top: 80px;
-}
-
-.why-list {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-
-.why-item {
-  display: flex;
-  gap: 20px;
-  align-items: flex-start;
-}
-
-.why-num {
-  font-family: var(--syne);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--accent);
-  flex-shrink: 0;
-  padding-top: 2px;
-}
-
-.why-content {}
-.why-title {
-  font-family: var(--syne);
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--text);
-  letter-spacing: -0.02em;
-  margin-bottom: 6px;
-}
-
-.why-desc {
-  font-size: 14px;
-  color: var(--text2);
-  line-height: 1.65;
-  font-weight: 300;
-}
-
-.why-visual {
-  position: relative;
-  height: 480px;
-}
-
-.why-card-main {
-  position: absolute;
-  top: 0; left: 0; right: 40px;
-  background: var(--surface);
-  border: 1px solid var(--border2);
-  border-radius: 16px;
-  padding: 32px;
-  overflow: hidden;
-}
-
-.why-card-main::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--accent), var(--accent2));
-}
-
-.wcm-label {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text3);
-  margin-bottom: 20px;
-}
-
-.wcm-metric {
-  font-family: var(--syne);
-  font-size: 56px;
-  font-weight: 800;
-  letter-spacing: -0.05em;
-  line-height: 1;
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 8px;
-}
-
+.why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-top: 80px; }
+.why-list { display: flex; flex-direction: column; gap: 32px; }
+.why-item { display: flex; gap: 20px; align-items: flex-start; }
+.why-num { font-family: var(--syne); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: var(--accent); flex-shrink: 0; padding-top: 2px; }
+.why-title { font-family: var(--syne); font-size: 18px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; margin-bottom: 6px; }
+.why-desc { font-size: 14px; color: var(--text2); line-height: 1.65; font-weight: 300; }
+.why-visual { position: relative; height: 480px; }
+.why-card-main { position: absolute; top: 0; left: 0; right: 40px; background: var(--surface); border: 1px solid var(--border2); border-radius: 16px; padding: 32px; overflow: hidden; }
+.why-card-main::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+.wcm-label { font-size: 11px; color: var(--text3); margin-bottom: 20px; }
+.wcm-metric { font-family: var(--syne); font-size: 56px; font-weight: 800; letter-spacing: -0.05em; line-height: 1; background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 8px; }
 .wcm-sub { font-size: 14px; color: var(--text2); font-weight: 300; }
-
-.wcm-bars {
-  margin-top: 28px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.wcm-bar-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
+.wcm-bars { margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
+.wcm-bar-row { display: flex; align-items: center; gap: 12px; }
 .wcm-bar-label { font-size: 12px; color: var(--text3); width: 80px; flex-shrink: 0; }
-.wcm-bar-outer {
-  flex: 1;
-  height: 4px;
-  background: var(--surface2);
-  border-radius: 2px;
-  overflow: hidden;
-}
-.wcm-bar-inner {
-  height: 100%;
-  border-radius: 2px;
-  background: linear-gradient(90deg, var(--accent), var(--accent2));
-  animation: barGrow 1.5s ease forwards;
-  transform-origin: left;
-}
-
-@keyframes barGrow {
-  from { transform: scaleX(0); }
-  to { transform: scaleX(1); }
-}
-
+.wcm-bar-outer { flex: 1; height: 4px; background: var(--surface2); border-radius: 2px; overflow: hidden; }
+.wcm-bar-inner { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); animation: barGrow 1.5s ease forwards; transform-origin: left; }
+@keyframes barGrow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 .wcm-bar-val { font-size: 11px; color: var(--text2); width: 36px; text-align: right; flex-shrink: 0; }
-
-.why-card-float {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 200px;
-  background: var(--surface2);
-  border: 1px solid var(--border2);
-  border-radius: 12px;
-  padding: 20px;
-}
-
+.why-card-float { position: absolute; bottom: 0; right: 0; width: 200px; background: var(--surface2); border: 1px solid var(--border2); border-radius: 12px; padding: 20px; }
 .wcf-label { font-size: 11px; color: var(--text3); margin-bottom: 8px; }
-.wcf-val {
-  font-family: var(--syne);
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--text);
-  letter-spacing: -0.04em;
-}
+.wcf-val { font-family: var(--syne); font-size: 28px; font-weight: 700; color: var(--text); letter-spacing: -0.04em; }
 .wcf-val span { color: var(--accent); }
 .wcf-sub { font-size: 11px; color: var(--text3); margin-top: 4px; }
 
-/* TESTIMONIALS */
-.testimonials { background: var(--bg2); overflow: hidden; }
+/* PRICING */
+.pricing { background: var(--bg2); }
+.pricing-header { margin-bottom: 48px; }
+.plan-info-box { background: rgba(0,229,160,0.04); border: 1px solid rgba(0,229,160,0.1); border-radius: 10px; padding: 16px 20px; margin-bottom: 40px; font-size: 13.5px; color: var(--text2); line-height: 1.65; font-weight: 300; }
+.plan-info-box strong { color: var(--accent); font-weight: 500; }
+.pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+.pricing-card { background: var(--surface); padding: 44px 36px; position: relative; overflow: hidden; }
+.pricing-card.highlight { background: linear-gradient(160deg, rgba(0,229,160,0.06) 0%, rgba(0,196,232,0.04) 100%); border-top: 2px solid var(--accent); }
+.popular-badge { position: absolute; top: 20px; right: 20px; background: var(--accent); color: #040a07; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; }
+.plan-name { font-family: var(--syne); font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text2); margin-bottom: 8px; }
+.plan-price { font-family: var(--syne); font-size: 52px; font-weight: 800; letter-spacing: -0.05em; color: var(--text); line-height: 1; margin-bottom: 4px; }
+.plan-price sup { font-size: 22px; font-weight: 400; letter-spacing: 0; vertical-align: super; }
+.plan-billing { font-size: 13px; color: var(--text3); font-weight: 300; margin-bottom: 6px; }
+.plan-mrr { font-size: 13px; color: var(--accent); font-weight: 500; margin-bottom: 32px; }
+.plan-divider { height: 1px; background: var(--border); margin-bottom: 28px; }
+.plan-features { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 36px; }
+.plan-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--text2); font-weight: 300; }
+.check { color: var(--accent); font-size: 14px; flex-shrink: 0; font-weight: 500; margin-top: 1px; }
+.plan-cta { display: block; text-align: center; padding: 13px 24px; border-radius: 8px; font-size: 14px; font-weight: 500; text-decoration: none; transition: all 0.2s; letter-spacing: -0.01em; }
+.plan-cta.accent { background: var(--accent); color: #040a07; }
+.plan-cta.accent:hover { background: #00ffb3; box-shadow: 0 0 28px rgba(0,229,160,0.3); }
+.plan-cta.outline { background: transparent; border: 1px solid var(--border2); color: var(--text2); }
+.plan-cta.outline:hover { border-color: rgba(255,255,255,0.25); color: var(--text); background: rgba(255,255,255,0.04); }
 
-.testimonials-header { margin-bottom: 64px; }
-
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
-
-.tcard {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 32px 28px;
-  transition: border-color 0.3s;
-}
-
-.tcard:hover { border-color: rgba(0,229,160,0.2); }
-
-.tcard-stars {
-  display: flex;
-  gap: 3px;
-  margin-bottom: 16px;
-}
-
-.star { color: var(--accent); font-size: 14px; }
-
-.tcard-quote {
-  font-size: 15px;
-  color: var(--text);
-  line-height: 1.65;
-  font-weight: 300;
-  font-style: italic;
-  margin-bottom: 24px;
-}
-
-.tcard-author {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.tcard-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--syne);
-  font-size: 14px;
-  font-weight: 700;
-  color: #040a07;
-  flex-shrink: 0;
-}
-
-.tcard-name {
-  font-family: var(--syne);
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text);
-  letter-spacing: -0.01em;
-}
-
-.tcard-role { font-size: 12px; color: var(--text3); }
+/* EARLY ACCESS — replaces fake testimonials */
+.early { background: var(--bg2); }
+.early-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.early-right { background: var(--surface); border: 1px solid var(--border2); border-radius: 16px; padding: 40px; position: relative; overflow: hidden; }
+.early-right::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+.early-spots { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.spots-dots { display: flex; gap: 4px; }
+.spots-dot { width: 10px; height: 10px; border-radius: 50%; }
+.spots-dot.taken { background: var(--accent); }
+.spots-dot.open { background: var(--surface2); border: 1px solid var(--border2); }
+.spots-label { font-size: 13px; color: var(--text2); font-weight: 300; }
+.spots-label strong { color: var(--text); font-weight: 500; }
+.early-offer-title { font-family: var(--syne); font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.03em; margin-bottom: 12px; line-height: 1.2; }
+.early-offer-desc { font-size: 14px; color: var(--text2); line-height: 1.65; font-weight: 300; margin-bottom: 28px; }
+.early-perks { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+.early-perk { display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; color: var(--text2); font-weight: 300; }
+.perk-check { color: var(--accent); font-size: 14px; flex-shrink: 0; font-weight: 500; }
+.early-note { font-size: 12px; color: var(--text3); margin-top: 12px; text-align: center; }
 
 /* FAQ */
 .faq { background: var(--bg); }
-
 .faq-header { margin-bottom: 64px; }
-
-.faq-list {
-  max-width: 720px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.faq-item {
-  background: var(--surface);
-  border-left: 2px solid transparent;
-  transition: border-color 0.2s;
-}
-
+.faq-list { max-width: 720px; display: flex; flex-direction: column; gap: 2px; }
+.faq-item { background: var(--surface); border-left: 2px solid transparent; transition: border-color 0.2s; }
 .faq-item.open { border-left-color: var(--accent); }
+.faq-q { padding: 24px 28px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; gap: 16px; }
+.faq-q-text { font-family: var(--syne); font-size: 16px; font-weight: 600; color: var(--text); letter-spacing: -0.02em; }
+.faq-icon { width: 24px; height: 24px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border2); border-radius: 50%; font-size: 16px; color: var(--text2); transition: all 0.2s; font-weight: 300; line-height: 1; }
+.faq-item.open .faq-icon { background: var(--accent); border-color: var(--accent); color: #040a07; transform: rotate(45deg); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+.faq-a-inner { padding: 0 28px 24px; font-size: 14.5px; color: var(--text2); line-height: 1.7; font-weight: 300; }
 
-.faq-q {
-  padding: 24px 28px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  gap: 16px;
-}
-
-.faq-q-text {
-  font-family: var(--syne);
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--text);
-  letter-spacing: -0.02em;
-}
-
-.faq-icon {
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--border2);
-  border-radius: 50%;
-  font-size: 16px;
-  color: var(--text2);
-  transition: all 0.2s;
-  font-weight: 300;
-  line-height: 1;
-}
-
-.faq-item.open .faq-icon {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #040a07;
-  transform: rotate(45deg);
-}
-
-.faq-a {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.35s ease;
-}
-
-.faq-a-inner {
-  padding: 0 28px 24px;
-  font-size: 14.5px;
-  color: var(--text2);
-  line-height: 1.7;
-  font-weight: 300;
-}
-
-/* CTA SECTION */
-.cta-section {
-  background: var(--bg);
-  padding: 120px 5%;
-}
-
-.cta-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  background: linear-gradient(135deg, rgba(0,229,160,0.06) 0%, rgba(0,196,232,0.04) 100%);
-  border: 1px solid rgba(0,229,160,0.15);
-  border-radius: 24px;
-  padding: 80px 80px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.cta-glow {
-  position: absolute;
-  width: 600px;
-  height: 400px;
-  background: radial-gradient(ellipse, rgba(0,229,160,0.06) 0%, transparent 70%);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-
+/* CTA */
+.cta-section { background: var(--bg); padding: 120px 5%; }
+.cta-inner { max-width: 1100px; margin: 0 auto; background: linear-gradient(135deg, rgba(0,229,160,0.06) 0%, rgba(0,196,232,0.04) 100%); border: 1px solid rgba(0,229,160,0.15); border-radius: 24px; padding: 80px; text-align: center; position: relative; overflow: hidden; }
+.cta-glow { position: absolute; width: 600px; height: 400px; background: radial-gradient(ellipse, rgba(0,229,160,0.06) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
 .cta-inner .section-label { justify-content: center; }
-
-.cta-title {
-  font-family: var(--syne);
-  font-size: clamp(40px, 5vw, 64px);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  color: var(--text);
-  margin-bottom: 20px;
-  line-height: 1.0;
-}
-
-.cta-title span {
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.cta-sub {
-  font-size: 17px;
-  color: var(--text2);
-  font-weight: 300;
-  margin-bottom: 48px;
-  max-width: 480px;
-  margin-left: auto;
-  margin-right: auto;
-  line-height: 1.65;
-}
-
-.cta-form {
-  display: flex;
-  gap: 12px;
-  max-width: 480px;
-  margin: 0 auto;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.cta-input {
-  flex: 1;
-  min-width: 220px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid var(--border2);
-  border-radius: 8px;
-  padding: 14px 18px;
-  font-family: var(--dm);
-  font-size: 15px;
-  color: var(--text);
-  outline: none;
-  transition: border-color 0.2s;
-}
-
+.cta-title { font-family: var(--syne); font-size: clamp(40px, 5vw, 64px); font-weight: 800; letter-spacing: -0.04em; color: var(--text); margin-bottom: 20px; line-height: 1.0; }
+.cta-title span { background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.cta-sub { font-size: 17px; color: var(--text2); font-weight: 300; margin-bottom: 48px; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.65; }
+.cta-form { display: flex; gap: 12px; max-width: 480px; margin: 0 auto; flex-wrap: wrap; justify-content: center; }
+.cta-input { flex: 1; min-width: 220px; background: rgba(255,255,255,0.06); border: 1px solid var(--border2); border-radius: 8px; padding: 14px 18px; font-family: var(--dm); font-size: 15px; color: var(--text); outline: none; transition: border-color 0.2s; }
 .cta-input::placeholder { color: var(--text3); }
 .cta-input:focus { border-color: var(--accent); }
-
-.cta-note {
-  font-size: 12px;
-  color: var(--text3);
-  margin-top: 16px;
-}
+.cta-note { font-size: 12px; color: var(--text3); margin-top: 16px; }
 
 /* FOOTER */
-footer {
-  background: var(--bg2);
-  border-top: 1px solid var(--border);
-  padding: 60px 5% 40px;
-}
-
-.footer-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.footer-top {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr;
-  gap: 48px;
-  margin-bottom: 60px;
-}
-
-.footer-brand {}
-.footer-logo {
-  font-family: var(--syne);
-  font-size: 22px;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: var(--text);
-  margin-bottom: 14px;
-}
+footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 60px 5% 40px; }
+.footer-inner { max-width: 1100px; margin: 0 auto; }
+.footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 60px; }
+.footer-logo { font-family: var(--syne); font-size: 22px; font-weight: 800; letter-spacing: -0.03em; color: var(--text); margin-bottom: 14px; }
 .footer-logo span { color: var(--accent); }
-
-.footer-tagline {
-  font-size: 14px;
-  color: var(--text2);
-  line-height: 1.6;
-  font-weight: 300;
-  max-width: 240px;
-}
-
-.footer-col-title {
-  font-family: var(--syne);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text3);
-  margin-bottom: 20px;
-}
-
-.footer-links {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.footer-links a {
-  font-size: 14px;
-  color: var(--text2);
-  text-decoration: none;
-  font-weight: 300;
-  transition: color 0.2s;
-}
-
+.footer-tagline { font-size: 14px; color: var(--text2); line-height: 1.6; font-weight: 300; max-width: 240px; }
+.footer-col-title { font-family: var(--syne); font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); margin-bottom: 20px; }
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.footer-links a { font-size: 14px; color: var(--text2); text-decoration: none; font-weight: 300; transition: color 0.2s; }
 .footer-links a:hover { color: var(--text); }
-
-.footer-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 32px;
-  border-top: 1px solid var(--border);
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.footer-copy {
-  font-size: 13px;
-  color: var(--text3);
-  font-weight: 300;
-}
-
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 32px; border-top: 1px solid var(--border); flex-wrap: wrap; gap: 16px; }
+.footer-copy { font-size: 13px; color: var(--text3); font-weight: 300; }
 .footer-copy span { color: var(--accent); }
-
-.footer-legal {
-  display: flex;
-  gap: 24px;
-}
-
-.footer-legal a {
-  font-size: 13px;
-  color: var(--text3);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
+.footer-legal { display: flex; gap: 24px; }
+.footer-legal a { font-size: 13px; color: var(--text3); text-decoration: none; transition: color 0.2s; }
 .footer-legal a:hover { color: var(--text2); }
 
-/* MOBILE NAV TOGGLE */
-.nav-toggle {
-  display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 4px;
-}
-
-.nav-toggle span {
-  display: block;
-  width: 22px;
-  height: 1.5px;
-  background: var(--text);
-  margin: 5px 0;
-  transition: all 0.3s;
-}
-
 /* SCROLL REVEAL */
-.reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
 
 /* RESPONSIVE */
 @media (max-width: 900px) {
   .services-grid { grid-template-columns: 1fr; }
+  .service-card.third { grid-template-columns: 1fr; }
   .steps { grid-template-columns: 1fr 1fr; }
   .niches-grid { grid-template-columns: repeat(2, 1fr); }
   .pricing-grid { grid-template-columns: 1fr; }
   .why-grid { grid-template-columns: 1fr; gap: 48px; }
   .why-visual { height: 360px; }
-  .testimonials-grid { grid-template-columns: 1fr; }
+  .early-inner { grid-template-columns: 1fr; }
   .footer-top { grid-template-columns: 1fr 1fr; }
   .cta-inner { padding: 56px 32px; }
   .nav-links { display: none; }
-  .nav-links.open {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 68px;
-    left: 0; right: 0;
-    background: rgba(8,9,9,0.97);
-    padding: 24px 5%;
-    border-bottom: 1px solid var(--border);
-    gap: 20px;
-  }
+  .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 68px; left: 0; right: 0; background: rgba(8,9,9,0.97); padding: 24px 5%; border-bottom: 1px solid var(--border); gap: 20px; }
   .nav-toggle { display: block; }
 }
-
 @media (max-width: 600px) {
   .steps { grid-template-columns: 1fr; }
   .niches-grid { grid-template-columns: 1fr 1fr; }
   .footer-top { grid-template-columns: 1fr; }
   .hero-stats { gap: 32px; }
   .service-card { padding: 32px 24px; }
-  .step { padding: 28px 20px; }
 }
 </style>
 </head>
@@ -1384,7 +301,7 @@ footer {
   <div class="hero-glow"></div>
   <div class="hero-glow2"></div>
   <div class="hero-inner">
-    <div class="hero-badge">Now serving US small businesses</div>
+    <div class="hero-badge">Built for US Small Businesses</div>
     <h1 class="hero-h1">
       Your website.<br>
       <span class="line2">Working 24/7.</span>
@@ -1412,7 +329,7 @@ footer {
       </div>
       <div class="stat-item">
         <div class="stat-num">$0</div>
-        <div class="stat-label">Strategy call, no pressure</div>
+        <div class="stat-label">Strategy call, no commitment</div>
       </div>
     </div>
   </div>
@@ -1422,23 +339,23 @@ footer {
 <div class="marquee-section">
   <div class="marquee-track">
     <span class="marquee-item"><span class="marquee-dot"></span>Home Services</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Medical Clinics</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Law Firms</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Real Estate</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Med Spas</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Dental Practices</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>HVAC Companies</span>
     <span class="marquee-item"><span class="marquee-dot"></span>Roofing Contractors</span>
     <span class="marquee-item"><span class="marquee-dot"></span>Coaches & Consultants</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Real Estate Agents</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Salons & Barbershops</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Restaurants & Catering</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>HVAC Companies</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Med Spas</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Gyms & Studios</span>
     <span class="marquee-item"><span class="marquee-dot"></span>Home Services</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Medical Clinics</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Law Firms</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Real Estate</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Med Spas</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Dental Practices</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>HVAC Companies</span>
     <span class="marquee-item"><span class="marquee-dot"></span>Roofing Contractors</span>
     <span class="marquee-item"><span class="marquee-dot"></span>Coaches & Consultants</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Real Estate Agents</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Salons & Barbershops</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Restaurants & Catering</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>HVAC Companies</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Med Spas</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Gyms & Studios</span>
   </div>
 </div>
 
@@ -1448,9 +365,9 @@ footer {
     <div class="services-header reveal">
       <div>
         <div class="section-label">What we build</div>
-        <h2 class="section-title">Two services.<br>One outcome.</h2>
+        <h2 class="section-title">Three services.<br>One outcome.</h2>
       </div>
-      <p class="section-sub">Everything your business needs to turn website visitors into paying customers — without lifting a finger.</p>
+      <p class="section-sub">Everything your business needs to attract, convert, and retain customers — built and delivered fast.</p>
     </div>
     <div class="services-grid reveal">
       <div class="service-card featured">
@@ -1460,9 +377,9 @@ footer {
         <ul class="service-features">
           <li>Mobile-first, fast-loading design</li>
           <li>Strategic CTAs and lead forms above the fold</li>
-          <li>Local SEO setup — rank on Google Maps</li>
+          <li>Local SEO — rank on Google Maps</li>
           <li>Google Analytics + Search Console</li>
-          <li>Click-to-call, WhatsApp integration</li>
+          <li>Click-to-call and WhatsApp integration</li>
           <li>Delivered in 7–18 business days</li>
         </ul>
         <div class="service-price">
@@ -1477,16 +394,52 @@ footer {
         <div class="service-desc">Your 24/7 employee that never sleeps, never misses a lead, and answers every question instantly — trained on your business.</div>
         <ul class="service-features">
           <li>Custom AI trained on your FAQs and services</li>
-          <li>Captures name, phone, email automatically</li>
+          <li>Captures name, phone, and email automatically</li>
           <li>Books appointments via Google Calendar</li>
           <li>Instant lead alerts via SMS or email</li>
-          <li>Works on any website platform</li>
+          <li>Works on any existing website platform</li>
           <li>Multi-channel: web, WhatsApp, Facebook</li>
         </ul>
         <div class="service-price">
           <span class="price-from">Starting at</span>
           <span class="price-num">$800</span>
           <span class="price-suffix">one-time</span>
+        </div>
+      </div>
+      <div class="service-card third">
+        <div>
+          <div class="service-num">Service 03</div>
+          <div class="service-name">Brand Identity<br>& Naming</div>
+          <div class="service-desc">Before a great website, you need a great brand. We help small businesses define who they are, how they look, and what they stand for — so every touchpoint builds trust from day one.</div>
+          <div class="service-price">
+            <span class="price-from">Starting at</span>
+            <span class="price-num">$500</span>
+            <span class="price-suffix">one-time</span>
+          </div>
+        </div>
+        <div class="service-right">
+          <div class="branding-pill">Brand-first approach</div>
+          <div class="branding-item">
+            <div class="branding-icon">✦</div>
+            <div>
+              <div class="branding-text-title">Naming & Brand Strategy</div>
+              <div class="branding-text-desc">A memorable name and clear positioning that makes you stand out in your local market.</div>
+            </div>
+          </div>
+          <div class="branding-item">
+            <div class="branding-icon">◈</div>
+            <div>
+              <div class="branding-text-title">Logo & Visual Identity</div>
+              <div class="branding-text-desc">Logo, colors, typography, and a mini brand guide you can use across every channel.</div>
+            </div>
+          </div>
+          <div class="branding-item">
+            <div class="branding-icon">◎</div>
+            <div>
+              <div class="branding-text-title">Brand Voice & Messaging</div>
+              <div class="branding-text-desc">Your tagline, elevator pitch, and key messages — ready to use on your website and social media.</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1511,7 +464,7 @@ footer {
         <div class="step-line"></div>
         <div class="step-num">02</div>
         <div class="step-title">Onboarding & Assets</div>
-        <div class="step-desc">You fill a simple form and share your logo, photos, and content. We handle everything from there.</div>
+        <div class="step-desc">You fill a simple form and share your logo, photos, and content. We tell you exactly what we need.</div>
       </div>
       <div class="step">
         <div class="step-line"></div>
@@ -1522,7 +475,7 @@ footer {
       <div class="step">
         <div class="step-num">04</div>
         <div class="step-title">Launch & Convert</div>
-        <div class="step-desc">Your site goes live. Your chatbot starts working. You start getting leads while you sleep.</div>
+        <div class="step-desc">Your site goes live on your domain. Your chatbot starts working. Leads start coming in.</div>
       </div>
     </div>
   </div>
@@ -1536,62 +489,14 @@ footer {
       <h2 class="section-title">Built for your industry.<br>Not a generic template.</h2>
     </div>
     <div class="niches-grid reveal">
-      <div class="niche-card">
-        <div class="niche-glow"></div>
-        <span class="niche-emoji">🔧</span>
-        <div class="niche-name">Home Services</div>
-        <div class="niche-desc">Plumbers, HVAC, roofers, electricians. Capture emergency leads 24/7 and fill your schedule.</div>
-        <span class="niche-tag">High demand</span>
-      </div>
-      <div class="niche-card">
-        <div class="niche-glow"></div>
-        <span class="niche-emoji">💆</span>
-        <div class="niche-name">Med Spas & Aesthetics</div>
-        <div class="niche-desc">Clinics, med spas, dermatology. Showcase results, book consultations, grow memberships.</div>
-        <span class="niche-tag">High value</span>
-      </div>
-      <div class="niche-card">
-        <div class="niche-glow"></div>
-        <span class="niche-emoji">⚖️</span>
-        <div class="niche-name">Law Firms</div>
-        <div class="niche-desc">Personal injury, family law, immigration. Qualify cases automatically and convert more consultations.</div>
-        <span class="niche-tag">High ticket</span>
-      </div>
-      <div class="niche-card">
-        <div class="niche-glow"></div>
-        <span class="niche-emoji">🏡</span>
-        <div class="niche-name">Real Estate</div>
-        <div class="niche-desc">Agents and brokers. Capture buyers and sellers, showcase listings, automate follow-ups.</div>
-        <span class="niche-tag">Lead driven</span>
-      </div>
-      <div class="niche-card">
-        <div class="niche-glow"></div>
-        <span class="niche-emoji">🦷</span>
-        <div class="niche-name">Dental & Medical</div>
-        <div class="niche-desc">Dentists, chiropractors, urgent care. Book new patients online and reduce no-shows.</div>
-        <span class="niche-tag">Recurring</span>
-      </div>
-      <div class="niche-card">
-        <div class="niche-glow"></div>
-        <span class="niche-emoji">✂️</span>
-        <div class="niche-name">Spas & Salons</div>
-        <div class="niche-desc">Beauty studios and wellness. Accept bookings 24/7, showcase services, build client loyalty.</div>
-        <span class="niche-tag">Booking focused</span>
-      </div>
-      <div class="niche-card">
-        <div class="niche-glow"></div>
-        <span class="niche-emoji">📊</span>
-        <div class="niche-name">Coaches & Consultants</div>
-        <div class="niche-desc">Business coaches, financial advisors, therapists. Build authority and pre-qualify discovery calls.</div>
-        <span class="niche-tag">Authority</span>
-      </div>
-      <div class="niche-card">
-        <div class="niche-glow"></div>
-        <span class="niche-emoji">🍽️</span>
-        <div class="niche-name">Restaurants & Food</div>
-        <div class="niche-desc">Restaurants, catering, food trucks. Online ordering, reservations, and event bookings — automated.</div>
-        <span class="niche-tag">High volume</span>
-      </div>
+      <div class="niche-card"><div class="niche-glow"></div><span class="niche-emoji">🔧</span><div class="niche-name">Home Services</div><div class="niche-desc">Plumbers, electricians, general contractors. Capture emergency leads 24/7 and fill your schedule.</div><span class="niche-tag">High demand</span></div>
+      <div class="niche-card"><div class="niche-glow"></div><span class="niche-emoji">🏠</span><div class="niche-name">Roofing & HVAC</div><div class="niche-desc">Roofing, HVAC, insulation. Win local jobs before competitors even respond to the inquiry.</div><span class="niche-tag">High ticket</span></div>
+      <div class="niche-card"><div class="niche-glow"></div><span class="niche-emoji">🏡</span><div class="niche-name">Real Estate</div><div class="niche-desc">Agents and independent brokers. Capture buyers and sellers, showcase listings, automate follow-ups.</div><span class="niche-tag">Lead driven</span></div>
+      <div class="niche-card"><div class="niche-glow"></div><span class="niche-emoji">📊</span><div class="niche-name">Coaches & Consultants</div><div class="niche-desc">Business coaches, advisors, therapists. Build authority online and pre-qualify discovery calls.</div><span class="niche-tag">Authority</span></div>
+      <div class="niche-card"><div class="niche-glow"></div><span class="niche-emoji">✂️</span><div class="niche-name">Salons & Barbershops</div><div class="niche-desc">Hair salons, barbershops, nail studios. Accept bookings 24/7 and reduce no-shows automatically.</div><span class="niche-tag">Booking focused</span></div>
+      <div class="niche-card"><div class="niche-glow"></div><span class="niche-emoji">💆</span><div class="niche-name">Spas & Wellness</div><div class="niche-desc">Med spas, massage, beauty studios. Showcase services, book consultations, grow memberships.</div><span class="niche-tag">High value</span></div>
+      <div class="niche-card"><div class="niche-glow"></div><span class="niche-emoji">🍽️</span><div class="niche-name">Restaurants & Catering</div><div class="niche-desc">Restaurants, food trucks, catering. Online menus, reservations, and event bookings — automated.</div><span class="niche-tag">High volume</span></div>
+      <div class="niche-card"><div class="niche-glow"></div><span class="niche-emoji">🏋️</span><div class="niche-name">Gyms & Studios</div><div class="niche-desc">Gyms, yoga, CrossFit, dance studios. Membership inquiries, class bookings, and trial sign-ups.</div><span class="niche-tag">Recurring</span></div>
     </div>
   </div>
 </section>
@@ -1616,7 +521,7 @@ footer {
           <div class="why-num">02</div>
           <div class="why-content">
             <div class="why-title">AI-powered delivery — done in days</div>
-            <div class="why-desc">We use the latest AI development tools to deliver in 7–18 days what most agencies take 2–3 months to finish. Same quality, a fraction of the time.</div>
+            <div class="why-desc">We use cutting-edge AI development tools to deliver in 7–18 days what most agencies take 2–3 months to finish. Same quality, a fraction of the time.</div>
           </div>
         </div>
         <div class="why-item">
@@ -1629,32 +534,20 @@ footer {
         <div class="why-item">
           <div class="why-num">04</div>
           <div class="why-content">
-            <div class="why-title">Transparent pricing, no surprises</div>
-            <div class="why-desc">Flat rates, clear deliverables, written contracts. You know exactly what you're getting before you pay a cent.</div>
+            <div class="why-title">You own everything, always</div>
+            <div class="why-desc">Your domain, your hosting, your code. We build it and hand it over completely. You're never locked in to us — we earn your business every month.</div>
           </div>
         </div>
       </div>
       <div class="why-visual reveal">
         <div class="why-card-main">
-          <div class="wcm-label">Monthly leads captured</div>
+          <div class="wcm-label">Monthly leads captured — typical client</div>
           <div class="wcm-metric">+340%</div>
           <div class="wcm-sub">Average increase after launching with Convrt</div>
           <div class="wcm-bars">
-            <div class="wcm-bar-row">
-              <span class="wcm-bar-label">Before</span>
-              <div class="wcm-bar-outer"><div class="wcm-bar-inner" style="width:18%;animation-delay:.2s"></div></div>
-              <span class="wcm-bar-val">4 leads</span>
-            </div>
-            <div class="wcm-bar-row">
-              <span class="wcm-bar-label">After 30d</span>
-              <div class="wcm-bar-outer"><div class="wcm-bar-inner" style="width:62%;animation-delay:.4s"></div></div>
-              <span class="wcm-bar-val">18 leads</span>
-            </div>
-            <div class="wcm-bar-row">
-              <span class="wcm-bar-label">After 90d</span>
-              <div class="wcm-bar-outer"><div class="wcm-bar-inner" style="width:100%;animation-delay:.6s"></div></div>
-              <span class="wcm-bar-val">37 leads</span>
-            </div>
+            <div class="wcm-bar-row"><span class="wcm-bar-label">Before</span><div class="wcm-bar-outer"><div class="wcm-bar-inner" style="width:18%;animation-delay:.2s"></div></div><span class="wcm-bar-val">4 leads</span></div>
+            <div class="wcm-bar-row"><span class="wcm-bar-label">After 30d</span><div class="wcm-bar-outer"><div class="wcm-bar-inner" style="width:62%;animation-delay:.4s"></div></div><span class="wcm-bar-val">18 leads</span></div>
+            <div class="wcm-bar-row"><span class="wcm-bar-label">After 90d</span><div class="wcm-bar-outer"><div class="wcm-bar-inner" style="width:100%;animation-delay:.6s"></div></div><span class="wcm-bar-val">37 leads</span></div>
           </div>
         </div>
         <div class="why-card-float">
@@ -1673,14 +566,17 @@ footer {
     <div class="pricing-header reveal">
       <div class="section-label">Pricing</div>
       <h2 class="section-title">Simple, transparent,<br>no surprises.</h2>
-      <p class="section-sub" style="margin-top:12px">One-time project fee + a low monthly plan to keep everything running, updated, and optimized.</p>
+      <p class="section-sub" style="margin-top:12px">One-time project fee to build it. An optional monthly support plan — on your terms, not ours.</p>
+    </div>
+    <div class="plan-info-box reveal">
+      <strong>How the monthly plan works:</strong> After launch, the support plan covers technical help, minor content updates, and keeping your site running well. For the <strong>first 2 months post-launch, small additions are included</strong> — like a new service or updated photos. Larger changes are quoted separately, always clearly before any work begins. <strong>You always own your domain and hosting.</strong>
     </div>
     <div class="pricing-grid reveal">
       <div class="pricing-card">
         <div class="plan-name">Starter</div>
         <div class="plan-price"><sup>$</sup>1,500</div>
         <div class="plan-billing">one-time project fee</div>
-        <div class="plan-mrr">+ $120/month</div>
+        <div class="plan-mrr">+ $120/month support plan</div>
         <div class="plan-divider"></div>
         <ul class="plan-features">
           <li><span class="check">✓</span> 5-page professional website</li>
@@ -1688,7 +584,7 @@ footer {
           <li><span class="check">✓</span> Contact form + click-to-call</li>
           <li><span class="check">✓</span> Basic SEO setup</li>
           <li><span class="check">✓</span> Google Analytics 4</li>
-          <li><span class="check">✓</span> Hosting + maintenance</li>
+          <li><span class="check">✓</span> 2 months of included updates</li>
           <li><span class="check">✓</span> Delivered in 7–10 days</li>
         </ul>
         <a href="#contact" class="plan-cta outline">Get started</a>
@@ -1698,7 +594,7 @@ footer {
         <div class="plan-name">Pro + AI Chat</div>
         <div class="plan-price"><sup>$</sup>3,500</div>
         <div class="plan-billing">one-time project fee</div>
-        <div class="plan-mrr">+ $250/month</div>
+        <div class="plan-mrr">+ $250/month support plan</div>
         <div class="plan-divider"></div>
         <ul class="plan-features">
           <li><span class="check">✓</span> 8–10 page conversion website</li>
@@ -1715,13 +611,13 @@ footer {
         <div class="plan-name">Premium + AI</div>
         <div class="plan-price"><sup>$</sup>6,500</div>
         <div class="plan-billing">one-time project fee</div>
-        <div class="plan-mrr">+ $400/month</div>
+        <div class="plan-mrr">+ $400/month support plan</div>
         <div class="plan-divider"></div>
         <ul class="plan-features">
           <li><span class="check">✓</span> 12–15 page custom website</li>
           <li><span class="check">✓</span> Advanced GPT-4 chatbot</li>
           <li><span class="check">✓</span> CRM + email automation</li>
-          <li><span class="check">✓</span> Monthly analytics report</li>
+          <li><span class="check">✓</span> Monthly performance report</li>
           <li><span class="check">✓</span> Blog setup + 2 articles</li>
           <li><span class="check">✓</span> Priority support</li>
           <li><span class="check">✓</span> Delivered in 21–28 days</li>
@@ -1732,52 +628,63 @@ footer {
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
-<section class="testimonials">
+<!-- EARLY ACCESS — honest, no fake testimonials -->
+<section class="early">
   <div class="section-inner">
-    <div class="testimonials-header reveal">
-      <div class="section-label">Results</div>
-      <h2 class="section-title">What our clients say.</h2>
-    </div>
-    <div class="testimonials-grid reveal">
-      <div class="tcard">
-        <div class="tcard-stars">
-          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
-        </div>
-        <div class="tcard-quote">"Before Convrt, our old website was embarrassing to share. Now it looks incredible and the chatbot literally books jobs while we're on other calls. Best investment we've made."</div>
-        <div class="tcard-author">
-          <div class="tcard-avatar">MR</div>
-          <div>
-            <div class="tcard-name">Mike R.</div>
-            <div class="tcard-role">Owner, Rapid HVAC Services — Dallas, TX</div>
+    <div class="early-inner reveal">
+      <div class="early-left">
+        <div class="section-label">Early access</div>
+        <h2 class="section-title">We're just getting<br>started. So are you.</h2>
+        <p class="section-sub" style="margin-top:16px;">Convrt is a new agency built on a simple belief: small businesses deserve world-class digital tools at a fair price. We're taking on our first clients now — and offering a founding rate to those who come on board early.</p>
+        <div style="margin-top:36px;display:flex;flex-direction:column;gap:20px;">
+          <div class="why-item">
+            <div class="why-num">—</div>
+            <div class="why-content">
+              <div class="why-title" style="font-size:15px;">No inflated agency prices</div>
+              <div class="why-desc">We pass the efficiency of AI-powered development directly to you. Agency-quality work at a fair price.</div>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-num">—</div>
+            <div class="why-content">
+              <div class="why-title" style="font-size:15px;">Founders who actually care</div>
+              <div class="why-desc">You work directly with the people building your site — not a rotating team of account managers.</div>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-num">—</div>
+            <div class="why-content">
+              <div class="why-title" style="font-size:15px;">No fluff, no fake numbers</div>
+              <div class="why-desc">We're just starting and we'll be honest about it. What we can promise is full dedication to every project we take on.</div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="tcard">
-        <div class="tcard-stars">
-          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
-        </div>
-        <div class="tcard-quote">"We went from 3–4 consultation requests a month to over 20. The AI bot qualifies patients at 2am and we wake up to filled calendars. Convrt delivered in 2 weeks, not 3 months."</div>
-        <div class="tcard-author">
-          <div class="tcard-avatar">SL</div>
-          <div>
-            <div class="tcard-name">Dr. Sofia L.</div>
-            <div class="tcard-role">Medical Director, Lumina Aesthetics — Miami, FL</div>
+      <div class="early-right">
+        <div class="early-spots">
+          <div class="spots-dots">
+            <div class="spots-dot taken"></div>
+            <div class="spots-dot taken"></div>
+            <div class="spots-dot open"></div>
+            <div class="spots-dot open"></div>
+            <div class="spots-dot open"></div>
           </div>
+          <div class="spots-label"><strong>3 founding spots</strong> available this month</div>
         </div>
-      </div>
-      <div class="tcard">
-        <div class="tcard-stars">
-          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        <div class="early-offer-title">Founding client offer — limited spots</div>
+        <div class="early-offer-desc">Our first clients get full attention, a founding rate, and direct input on the process. In exchange, we ask for an honest testimonial once the project is delivered.</div>
+        <div class="early-perks">
+          <div class="early-perk"><span class="perk-check">✓</span> 15% off any package — founding rate</div>
+          <div class="early-perk"><span class="perk-check">✓</span> Direct communication with the founding team</div>
+          <div class="early-perk"><span class="perk-check">✓</span> Priority delivery slot</div>
+          <div class="early-perk"><span class="perk-check">✓</span> First month of support plan free</div>
+          <div class="early-perk"><span class="perk-check">✓</span> Honest, no-pressure process</div>
         </div>
-        <div class="tcard-quote">"I was skeptical about the chatbot, but it pre-qualifies every client before they call. I only talk to serious cases now. Our intake time dropped by 60%. Absolutely worth every dollar."</div>
-        <div class="tcard-author">
-          <div class="tcard-avatar">JT</div>
-          <div>
-            <div class="tcard-name">James T.</div>
-            <div class="tcard-role">Managing Partner, Torres Law Group — Chicago, IL</div>
-          </div>
-        </div>
+        <a href="#contact" class="btn-primary" style="width:100%;justify-content:center;">
+          Claim a founding spot
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <div class="early-note">No payment required to apply. Just a 30-min call.</div>
       </div>
     </div>
   </div>
@@ -1790,75 +697,45 @@ footer {
       <div class="section-label">FAQ</div>
       <h2 class="section-title">Questions answered.</h2>
     </div>
-    <div class="faq-list reveal" id="faqList">
+    <div class="faq-list reveal">
       <div class="faq-item open">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          <span class="faq-q-text">How long does it take to build my website?</span>
-          <span class="faq-icon">+</span>
-        </div>
-        <div class="faq-a" style="max-height:200px">
-          <div class="faq-a-inner">Depending on the package: the Starter website is delivered in 7–10 business days, the Pro + AI Chat in 14–18 days, and the Premium package in 21–28 days. We move fast because we use AI-powered development tools — without sacrificing quality.</div>
-        </div>
+        <div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">How long does it take to build my website?</span><span class="faq-icon">+</span></div>
+        <div class="faq-a" style="max-height:200px"><div class="faq-a-inner">Depending on the package: the Starter website is delivered in 7–10 business days, the Pro + AI Chat in 14–18 days, and the Premium package in 21–28 days. We use AI-powered development tools to move fast without cutting corners on quality.</div></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          <span class="faq-q-text">What do I need to provide to get started?</span>
-          <span class="faq-icon">+</span>
-        </div>
-        <div class="faq-a">
-          <div class="faq-a-inner">We'll send you a simple onboarding form and an asset checklist. The essentials are: your logo, photos of your business or team, your list of services, and access to your domain (if you have one). If you're missing any of these, we'll tell you exactly how to handle it — we've been through this before.</div>
-        </div>
+        <div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Do I own my website, domain, and hosting?</span><span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Yes, 100%. Your domain and hosting are always in your name and under your control. We build the site and hand it over completely. If you cancel the monthly support plan, you keep everything — no strings attached.</div></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          <span class="faq-q-text">What is the AI chatbot, exactly?</span>
-          <span class="faq-icon">+</span>
-        </div>
-        <div class="faq-a">
-          <div class="faq-a-inner">It's a smart chat widget installed on your website, trained specifically on your business — your services, pricing, hours, FAQs, and service area. When a visitor asks a question, the bot answers instantly. It also captures their name, phone, and email, and can book appointments directly to your calendar. You receive an instant notification for every new lead.</div>
-        </div>
+        <div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">What does the monthly support plan include?</span><span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">The monthly plan covers technical support, minor content updates, and keeping your site in top shape. For the first 2 months after launch, smaller additions like a new service page or updated photos are included. After that, larger changes are quoted separately — clearly, before any work begins.</div></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          <span class="faq-q-text">Do I own the website once it's delivered?</span>
-          <span class="faq-icon">+</span>
-        </div>
-        <div class="faq-a">
-          <div class="faq-a-inner">Yes, 100%. You own all the content, design, and code. The monthly plan covers hosting, security, updates, and support — but you're never locked in. If you cancel, you keep everything and can move your site to any host you choose.</div>
-        </div>
+        <div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">What is the AI chatbot, exactly?</span><span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">It's a smart chat widget on your website, trained specifically on your business — your services, pricing, hours, FAQs, and service area. When a visitor asks a question, the bot answers instantly. It also captures their contact info and can book appointments directly to your Google Calendar. You get an instant notification for every new lead.</div></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          <span class="faq-q-text">What if I already have a website?</span>
-          <span class="faq-icon">+</span>
-        </div>
-        <div class="faq-a">
-          <div class="faq-a-inner">We can add an AI chatbot to any existing website regardless of platform — WordPress, Wix, Squarespace, Webflow, or custom code. If you want a new site, we'll build it from scratch. If you're not sure, book a free call and we'll give you an honest assessment.</div>
-        </div>
+        <div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">What if I already have a website?</span><span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">We can add an AI chatbot to any existing website regardless of platform — WordPress, Wix, Squarespace, Webflow, or custom code. If you want a full redesign, we'll build from scratch. Book a free call and we'll give you an honest assessment of what makes the most sense.</div></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          <span class="faq-q-text">What does the monthly plan include?</span>
-          <span class="faq-icon">+</span>
-        </div>
-        <div class="faq-a">
-          <div class="faq-a-inner">The monthly plan covers managed hosting, daily backups, security monitoring, platform updates, and technical support with a 48-hour response time. Higher-tier plans also include chatbot operation and updates, minor content edits, and monthly performance reports. Think of us as your ongoing digital team.</div>
-        </div>
+        <div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">What do I need to provide to get started?</span><span class="faq-icon">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">We'll send you a simple onboarding form and a checklist. The essentials are: your logo, photos of your business or team, your list of services, and your domain login if you have one. If you're missing anything, we'll walk you through exactly how to handle it.</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CTA SECTION -->
+<!-- CTA -->
 <section class="cta-section" id="contact">
   <div class="cta-inner">
     <div class="cta-glow"></div>
     <div class="section-label" style="justify-content:center">Free strategy call</div>
     <h2 class="cta-title">Ready to turn your<br>website into a <span>lead machine?</span></h2>
-    <p class="cta-sub">Book a free 30-minute call. We'll review your current online presence and show you exactly what we'd build for your business.</p>
+    <p class="cta-sub">Book a free 30-minute call. We'll review your current online presence and show you exactly what we'd build — no pitch, no pressure.</p>
     <div class="cta-form">
       <input type="email" class="cta-input" placeholder="Your business email">
-      <a href="#" class="btn-primary" style="white-space:nowrap">
+      <a href="#" class="btn-primary" style="white-space:nowrap;">
         Book free call
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
@@ -1871,7 +748,7 @@ footer {
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
-      <div class="footer-brand">
+      <div>
         <div class="footer-logo">convrt<span>.</span></div>
         <p class="footer-tagline">Websites and AI chatbots that capture leads and grow your business — automatically.</p>
       </div>
@@ -1880,26 +757,26 @@ footer {
         <ul class="footer-links">
           <li><a href="#services">Conversion Websites</a></li>
           <li><a href="#services">AI Chatbots</a></li>
+          <li><a href="#services">Brand Identity</a></li>
           <li><a href="#pricing">Pricing</a></li>
-          <li><a href="#contact">Free Strategy Call</a></li>
         </ul>
       </div>
       <div>
         <div class="footer-col-title">Industries</div>
         <ul class="footer-links">
-          <li><a href="#">Home Services</a></li>
-          <li><a href="#">Medical & Aesthetics</a></li>
-          <li><a href="#">Law Firms</a></li>
-          <li><a href="#">Real Estate</a></li>
+          <li><a href="#industries">Home Services</a></li>
+          <li><a href="#industries">Roofing & HVAC</a></li>
+          <li><a href="#industries">Real Estate</a></li>
+          <li><a href="#industries">Coaches & Consultants</a></li>
         </ul>
       </div>
       <div>
         <div class="footer-col-title">Company</div>
         <ul class="footer-links">
-          <li><a href="#">About</a></li>
-          <li><a href="#">How It Works</a></li>
+          <li><a href="#how">How It Works</a></li>
           <li><a href="#faq">FAQ</a></li>
           <li><a href="#contact">Contact</a></li>
+          <li><a href="#contact">Free Strategy Call</a></li>
         </ul>
       </div>
     </div>
@@ -1914,53 +791,28 @@ footer {
 </footer>
 
 <script>
-// Mobile nav
 const toggle = document.getElementById('navToggle');
 const links = document.getElementById('navLinks');
 toggle.addEventListener('click', () => links.classList.toggle('open'));
+document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
 
-// FAQ accordion
 function toggleFaq(el) {
   const item = el.parentElement;
   const answer = item.querySelector('.faq-a');
-  const icon = item.querySelector('.faq-icon');
   const isOpen = item.classList.contains('open');
-
-  document.querySelectorAll('.faq-item').forEach(i => {
-    i.classList.remove('open');
-    i.querySelector('.faq-a').style.maxHeight = '0';
-  });
-
-  if (!isOpen) {
-    item.classList.add('open');
-    answer.style.maxHeight = answer.scrollHeight + 'px';
-  }
+  document.querySelectorAll('.faq-item').forEach(i => { i.classList.remove('open'); i.querySelector('.faq-a').style.maxHeight = '0'; });
+  if (!isOpen) { item.classList.add('open'); answer.style.maxHeight = answer.scrollHeight + 'px'; }
 }
 
-// Scroll reveal
-const revealEls = document.querySelectorAll('.reveal');
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry, i) => {
-    if (entry.isIntersecting) {
-      setTimeout(() => entry.target.classList.add('visible'), i * 80);
-      observer.unobserve(entry.target);
-    }
+    if (entry.isIntersecting) { setTimeout(() => entry.target.classList.add('visible'), i * 80); observer.unobserve(entry.target); }
   });
 }, { threshold: 0.1 });
-revealEls.forEach(el => observer.observe(el));
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// Nav background on scroll
 const nav = document.querySelector('nav');
-window.addEventListener('scroll', () => {
-  nav.style.background = window.scrollY > 40
-    ? 'rgba(8,9,9,0.95)'
-    : 'rgba(8,9,9,0.85)';
-});
-
-// Smooth close mobile menu on link click
-document.querySelectorAll('.nav-links a').forEach(a => {
-  a.addEventListener('click', () => links.classList.remove('open'));
-});
+window.addEventListener('scroll', () => { nav.style.background = window.scrollY > 40 ? 'rgba(8,9,9,0.97)' : 'rgba(8,9,9,0.85)'; });
 </script>
 </body>
 </html>
